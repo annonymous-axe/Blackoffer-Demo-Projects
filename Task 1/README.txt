@@ -22,7 +22,7 @@ Here's Preview of Dashboard and Query :
 
 <h3>Dashboad</h3>
 
-![Dashboard](https://github.com/annonymous-axe/Blackoffer-Demo-Projects/assets/79747679/d582b12d-e31b-401d-a501-b5956595a829)
+
 
 To search query go to the Discover from Main Menu.
 
