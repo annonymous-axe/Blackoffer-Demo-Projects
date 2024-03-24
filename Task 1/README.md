@@ -40,4 +40,4 @@ Here I search for the term "facebook.com" in referer field.
 
 In this query I search the location for India in geo.dest field. Using 'IN' code.
 
-For more detail, go to the /doc/README
+For more detail, go to the <b>/doc/README</b>
