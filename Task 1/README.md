@@ -22,7 +22,9 @@ Here's Preview of Dashboard and Query :
 
 <h3>Dashboad</h3>
 
-![Dashboard](https://github.com/annonymous-axe/Blackoffer-Demo-Projects/assets/79747679/d582b12d-e31b-401d-a501-b5956595a829)
+
+![Dashboard](https://github.com/annonymous-axe/Blackoffer-Demo-Projects/assets/79747679/c616a736-0492-4456-b76d-342d74e70f48)
+
 
 To search query go to the Discover from Main Menu.
 
@@ -38,4 +40,4 @@ Here I search for the term "facebook.com" in referer field.
 
 In this query I search the location for India in geo.dest field. Using 'IN' code.
 
-For more detail, go to the /doc/README
+For more detail, go to the <b>/doc/README</b>
