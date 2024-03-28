@@ -14,7 +14,8 @@ Here's the screenshot of output :
 
 <b>Filter by category : </b>
 
-![Uploading Screenshot (148).png…]()
+![Screenshot (148)](https://github.com/annonymous-axe/Blackoffer-Demo-Projects/assets/79747679/f30b04d1-a947-4230-9b28-9dec317436ca)
+
 
 
 Steps : 
