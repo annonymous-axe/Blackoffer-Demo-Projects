@@ -17,5 +17,15 @@ Here's the screenshot of output :
 ![Uploading Screenshot (148).png…]()
 
 
+Steps : 
+
+To run this Flask App on local machine.Follow this steps:
+
+1) First, install the requirements mention in <code>requirement</code> file.
+2) Install the ElasticSearch on you system. And run it.
+3) Next open terminal or vs code then go to the path of this project (where you cloned this repository).
+4) And run the app.py using <code>python app.py</code>
+
+
 
 
