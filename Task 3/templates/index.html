@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    <title>News App</title>
+</head>
+<body>
+
+    <div class="ui internally celled grid">
+        <div class="row">
+          <form action="/sroted_serach" method="POST">
+
+          <div class="three wide column">
+
+            <h3 style="margin: 30px 20px 10px 15px;">Filters</h3>
+
+            <select name="categories" class="ui dropdown" style="margin: 15px 20px 10px 15px;">
+
+              <option value="">Categories</option>
+              {% for category in categories %}
+              <option value={{ category[0] }}>{{ category[0] }} : {{ category[1] }}</option>
+              {% endfor %}
+
+            </select>
+
+            <!-- <select name="authors" class="ui dropdown" style="margin: 15px 20px 10px 15px;">
+
+              <option value="all">Authors</option>
+              {% for author in authors %}
+              <option value={{ author[0] }}>{{ author[0] }} : {{ author[1] }}</option>
+              {% endfor %}
+              
+            </select> -->
+
+            <br><br><br>
+            <button type="submit" class="ui green button" style="margin: 15px 20px 10px 15px;">Apply</button>
+
+          </div>
+
+          </form>
+
+          <div class="ten wide column">
+            
+            <form action="/search" method="post">
+
+              <div class="ui category search">
+                <div class="ui icon input">
+                  <input name="search_word" class="prompt" type="text" placeholder="Ex. Obama..." value={{word}}>
+                  <a type="submit" class="search icon"></a>
+                  <!-- <button type="submit" class="ui small blue button">Search</button> -->
+                </div>
+                <div class="results"></div>
+              </div>
+
+            </form>
+
+            {% for info in articles %}
+            <p>
+                <div class="ui segments">
+                    <div class="ui segment">
+                      <p>{{info['headline']}}</p>
+                    </div>
+                    <div class="ui secondary segment">
+                      <p>
+                        {{info['short_description']}}
+                        <br><br><br>
+                        Author : {{info['authors']}}
+                        <br>
+                        Category : {{info['category']}}
+                        <br>
+                        Date : {{info['date']}}
+                        <a class="ui blue right floated button" href={{info['link']}} target="_blank">
+                            Read More<i class="right arrow icon"></i>
+                        </a>
+                    </p>
+                    </div>
+                </div>
+            </p>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+</body>
+</html>
