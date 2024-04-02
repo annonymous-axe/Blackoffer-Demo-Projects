@@ -1,6 +1,6 @@
 from elasticsearch import Elasticsearch
 
-engine = Elasticsearch(['https://localhost:9200'], verify_certs=False, http_auth=['elastic', 'e7VIG5nWlUDgbeqsOFWs'])
+engine = Elasticsearch(['https://localhost:9200'],  http_auth=['elastic', 'd4LzX42h04nJ67q54e=L'])
 
 def get_latest_data():
     """
