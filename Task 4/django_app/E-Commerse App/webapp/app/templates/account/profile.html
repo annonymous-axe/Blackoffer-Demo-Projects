@@ -1,0 +1,124 @@
+  
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="margin: 150px 10px 50px 10px;">
+
+{% if user  %}
+
+  <h3 style="color: rgb(255, 154, 31); margin-left: 15px; margin-bottom: 30px;"> WELCOME: {{user.username}}</h3>
+ 
+  <form action="update_profile" method="POST">
+
+    {% csrf_token %}
+
+      {% if flag == 0 %}
+
+        <div class="row p-4">
+
+          <div class="col-md-6 p-2">
+
+            <h5>Email </h5>
+
+            <input type="email" class="form-control" name="email" placeholder={{user.email}} disabled>
+
+          </div>
+
+          <div class="col-md-6 p-2">
+
+            <h5>Username </h5>
+
+            <input type="text" class="form-control" name='name' placeholder={{user.username}} disabled>
+
+          </div>
+
+        </div>
+
+        <div class="row p-4">
+
+          <div class="col-md-6">
+
+            <h5>Password </h5>
+
+            <input type="text" class="form-control" name='password' placeholder={{user.password}} disabled>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <h5>Joining Date </h5>
+
+            <input type="text" class="form-control" name='date' placeholder={{user.date_joined}} disabled>
+
+          </div>
+
+        </div>
+
+      {% else %}
+
+      <div class="row p-4">
+
+        <div class="col-md-6 p-2">
+
+          <h5>Email </h5>
+
+          <input type="email" class="form-control" name="email" placeholder={{user.email}}>
+
+        </div>
+
+        <div class="col-md-6 p-2">
+
+          <h5>Username </h5>
+
+          <input type="text" class="form-control" name='name' placeholder={{user.username}}>
+
+        </div>
+
+      </div>
+
+      <div class="row p-4">
+
+        <div class="col-md-6">
+
+          <h5>Password </h5>
+
+          <input type="text" class="form-control" name='password' placeholder={{user.password}}>
+
+        </div>
+
+        <div class="col-md-6">
+
+          <h5>Joining Date </h5>
+
+          <input type="text" class="form-control" name='date' placeholder={{user.date_joined}}>
+
+        </div>
+
+      </div>
+
+      {% endif %}
+
+    <div class="text-center">
+
+      <button class="btn btn-outline-success" type="submit">Update</button>
+
+      {% if flag == 1 %}
+
+        <a class="btn btn-outline-success" href="profile">Cancel</a>
+
+      {% endif %}
+    </div>
+
+    </div>
+
+  </form>
+  
+  {% else %}
+
+  <h1>user not found!</h1>
+
+{% endif %}
+</div>
+
+{% endblock %}

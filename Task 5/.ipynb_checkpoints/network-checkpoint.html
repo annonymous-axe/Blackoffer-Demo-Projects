@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:2", "label": "Anthony Davis", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:19", "label": "LA Lakers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:12", "label": "Frank Vogel", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:0", "label": "Russell Westbrook", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:1", "label": "LeBron James", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:5", "label": "Kristaps Porzingis", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:21", "label": "Dallas Mavericks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:14", "label": "Jason Kidd", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:4", "label": "Luka Doncic", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:7", "label": "James Harden", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:22", "label": "Brooklyn Nets", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:15", "label": "Steve Nash", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:6", "label": "Kevin Durant", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:8", "label": "Giannis Antetokounmpo", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:23", "label": "Milwaukee Bucks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:16", "label": "Mike Budenholzer", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:9", "label": "Khris Middleton", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:11", "label": "Tobias Harris", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:24", "label": "Philadelphia 76ers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:17", "label": "Doc Rivers", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:25", "label": "Russell Westbrook", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:44", "label": "LA Lakers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:37", "label": "Frank Vogel", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:27", "label": "Anthony Davis", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:26", "label": "LeBron James", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:29", "label": "Luka Doncic", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:46", "label": "Dallas Mavericks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:39", "label": "Jason Kidd", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:30", "label": "Kristaps Porzingis", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:31", "label": "Kevin Durant", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:47", "label": "Brooklyn Nets", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:40", "label": "Steve Nash", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:32", "label": "James Harden", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:33", "label": "Giannis Antetokounmpo", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:48", "label": "Milwaukee Bucks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:41", "label": "Mike Budenholzer", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:34", "label": "Khris Middleton", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:36", "label": "Tobias Harris", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:49", "label": "Philadelphia 76ers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:42", "label": "Doc Rivers", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:50", "label": "Russell Westbrook", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:69", "label": "LA Lakers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:62", "label": "Frank Vogel", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:51", "label": "LeBron James", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:52", "label": "Anthony Davis", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:54", "label": "Luka Doncic", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:71", "label": "Dallas Mavericks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:64", "label": "Jason Kidd", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:55", "label": "Kristaps Porzingis", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:57", "label": "James Harden", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:72", "label": "Brooklyn Nets", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:65", "label": "Steve Nash", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:56", "label": "Kevin Durant", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:58", "label": "Giannis Antetokounmpo", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:73", "label": "Milwaukee Bucks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:66", "label": "Mike Budenholzer", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:59", "label": "Khris Middleton", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:61", "label": "Tobias Harris", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:74", "label": "Philadelphia 76ers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:67", "label": "Doc Rivers", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:3", "label": "Russell Westbrook", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:91", "label": "LA Lakers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:84", "label": "Frank Vogel", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:28", "label": "LeBron James", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:53", "label": "Anthony Davis", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:77", "label": "Kristaps Porzingis", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:93", "label": "Dallas Mavericks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:86", "label": "Jason Kidd", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:76", "label": "Luka Doncic", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:78", "label": "Kevin Durant", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:94", "label": "Brooklyn Nets", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:87", "label": "Steve Nash", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:79", "label": "James Harden", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:80", "label": "Giannis Antetokounmpo", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:95", "label": "Milwaukee Bucks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:88", "label": "Mike Budenholzer", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:81", "label": "Khris Middleton", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:83", "label": "Tobias Harris", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:96", "label": "Philadelphia 76ers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:89", "label": "Doc Rivers", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:97", "label": "LeBron James", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:115", "label": "LA Lakers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:108", "label": "Frank Vogel", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:98", "label": "Anthony Davis", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:75", "label": "Russell Westbrook", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:100", "label": "Luka Doncic", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:117", "label": "Dallas Mavericks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:110", "label": "Jason Kidd", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:101", "label": "Kristaps Porzingis", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:102", "label": "Kevin Durant", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:118", "label": "Brooklyn Nets", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:111", "label": "Steve Nash", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:103", "label": "James Harden", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:105", "label": "Khris Middleton", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:119", "label": "Milwaukee Bucks", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:112", "label": "Mike Budenholzer", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:104", "label": "Giannis Antetokounmpo", "shape": "dot"}, {"group": "PLAYER", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:107", "label": "Tobias Harris", "shape": "dot"}, {"group": "TEAM", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:120", "label": "Philadelphia 76ers", "shape": "dot"}, {"group": "COACH", "id": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:113", "label": "Doc Rivers", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:2", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:19"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:12", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:2"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:0", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:19"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:12", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:0"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:1", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:19"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:12", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:1"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:5", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:21"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:14", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:5"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:4", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:21"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:14", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:4"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:7", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:22"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:15", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:7"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:6", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:22"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:15", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:6"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:8", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:23"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:16", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:8"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:9", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:23"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:16", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:9"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:11", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:24"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:17", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:11"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:25", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:44"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:37", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:25"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:27", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:44"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:37", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:27"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:26", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:44"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:37", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:26"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:29", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:46"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:39", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:29"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:30", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:46"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:39", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:30"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:31", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:47"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:40", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:31"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:32", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:47"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:40", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:32"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:33", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:48"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:41", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:33"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:34", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:48"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:41", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:34"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:36", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:49"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:42", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:36"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:50", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:69"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:62", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:50"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:51", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:69"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:62", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:51"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:52", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:69"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:62", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:52"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:54", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:71"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:64", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:54"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:55", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:71"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:64", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:55"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:57", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:72"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:65", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:57"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:56", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:72"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:65", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:56"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:58", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:73"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:66", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:58"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:59", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:73"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:66", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:59"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:61", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:74"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:67", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:61"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:3", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:91"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:84", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:3"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:28", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:91"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:84", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:28"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:53", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:91"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:84", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:53"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:77", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:93"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:86", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:77"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:76", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:93"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:86", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:76"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:78", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:94"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:87", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:78"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:79", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:94"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:87", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:79"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:80", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:95"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:88", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:80"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:81", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:95"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:88", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:81"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:83", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:96"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:89", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:83"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:97", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:115"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:108", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:97"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:98", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:115"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:108", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:98"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:75", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:115"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:108", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:75"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:100", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:117"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:110", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:100"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:101", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:117"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:110", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:101"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:102", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:118"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:111", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:102"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:103", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:118"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:111", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:103"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:105", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:119"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:112", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:105"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:104", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:119"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:112", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:104"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:107", "title": "PLAYS_FOR", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:120"}, {"from": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:113", "title": "COACHES", "to": "4:e2ccc78f-c0f4-483e-bd27-c8030810eadb:107"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

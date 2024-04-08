@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="container-fluid">
+
+    <a class="navbar-brand logo me-auto"><h2><span style="color: red;">E-</span>Health</h2></a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">          
+
+        <li class="nav-item">
+          <a class="nav-link" href="">Home</a>
+        </li>
+
+        {% if user.id is null %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            
+            Account
+
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+            <li><a class="link dropdown-item" href="login">Login</a></li>
+
+            <li><a class="dropdown-item" href="register">Register</a></li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+
+          </ul>
+
+        </li>
+
+        {% else %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">History</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="diabetes_prediction">Check Diabetes</a>
+        </li>
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Welcome
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="profile">Profile</a></li>
+            <li><a class="dropdown-item" href="logout">Logout</a></li>
+          </ul>
+
+        </li>
+
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Doctors</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+
+      </ul>
+
+      <form class="d-flex" style="padding-top: 10px; padding-bottom: 0%;">
+
+        <button class="btn btn-outline-success" type="submit" >Make an Appointment</button>  
+
+      </form>
+
+    </div>
+
+  </div>
+
+</nav>

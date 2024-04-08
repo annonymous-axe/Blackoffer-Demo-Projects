@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+
+            <div class="carousel-item active doctor-bg-img" style="background-image: url(static/img/slide/slide-1.jpg); background-size: 100% 80%; background-repeat: no-repeat;"> 
+
+                <div class="row align-items-center m-5" style="height: 100vh;">
+                
+                    <div class="card text-center" style="opacity: 0.85;">
+
+                        <div class="card-body">
+
+                        <h5 class="card-title">Welcome <span style="color: red;">E-</span>Health</h5>
+
+                        <p class="card-text">In our job, you will never go home at the end of the day thinking that you haven’t done something valuable and important.</p>
+
+                        <a href="#" class="btn btn-success">Read More</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+        </button>
+    
+
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-3">
+
+            <div class="card">
+                <div class="card-body">
+                    <i class="fa fa-heartbeat" style="font-size:48px;color:rgb(93, 230, 195); margin-left: 20px; margin-top: 15px;"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-success">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            <div class="col-sm-3">
+
+                <div class="card">
+                    <div class="card-body">
+                        <i class='fa fa-plus-square' style="font-size:48px;color:rgb(93, 230, 195); margin-left: 20px; margin-top: 15px;"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-success">Read More</a>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="col-sm-3">
+
+                <div class="card">
+                <div class="card-body">
+                    <i class="fa fa-stethoscope" style="font-size:48px;color:rgb(93, 230, 195); margin-left: 20px; margin-top: 15px;"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-success">Read More</a>
+                    </div>
+                </div>
+                </div>
+    
+            </div>
+            <div class="col-sm-3">
+    
+                <div class="card">
+                <div class="card-body">
+                    <i class="fa fa-user-md" style="font-size:48px;color:rgb(93, 230, 195); margin-left: 20px; margin-top: 15px;"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-success">Read More</a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section class="container forms">
+
+        <div class="form signup">
+
+            <div class="form-content">
+
+                <header>Signup</header>
+
+                <form action="/register" method="POST">
+
+                    {{ form.hidden_tag() }}
+
+                    {{ csrf_token }}
+
+                    <div class="field input-field">
+
+                        {{ form.email(placeholder="email") }}
+
+                    </div>
+
+                    <div class="field input-field">
+
+                        {{ form.password(placeholder="password") }}
+
+                    </div>
+
+                    <br>
+
+                    {% if error %}
+
+                        <p id="message-timer" class="error_message"><strong>{{ error }}</strong></p>    
+
+                    {% endif %}
+
+                    {{ form.submit(class="field button-field")}}
+                    
+                </form>
+
+                <div class="form-link">
+
+                    <span>Already have an account? <a href="/login" class="link login-link">Login</a></span>
+
+                </div>
+
+            </div>
+
+            <div class="line"></div>
+
+            <div class="media-options">
+
+                <a href="#" class="field facebook">
+
+                    <i class='bx bxl-facebook facebook-icon'></i>
+
+                    <span>Login with Facebook</span>
+
+                </a>
+                
+            </div>
+
+            <div class="media-options">
+
+                <a href="#" class="field google">
+
+                    <img src="static/images/google.png" alt="" class="google-img">
+
+                    <span>Login with Google</span>
+
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+    
+{% endblock %}

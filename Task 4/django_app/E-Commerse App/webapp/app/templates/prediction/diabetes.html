@@ -1,0 +1,117 @@
+  
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div style="margin: 150px 10px 50px 10px;">
+
+  <form method="POST">
+
+    {% csrf_token %}
+
+  <h2 style="margin: 10px auto; text-align: center;">Fill the form Bellow to Check Your Diabetes Status</h2>
+    
+    <br>
+    <div class="row">
+
+
+      <div class="col-md-4 form-group mt-3">
+
+        <h5>Age</h5>
+        <br>
+
+       <input type="number" name="age" class="form-control" id="age" placeholder="Age" required>
+
+      </div>
+
+      <div class="col-md-4 form-group mt-3">
+
+        <h5>Gender</h5>
+        <br>
+
+        <select name="gender" id="role" class="form-select" required>
+          <option value="">Select Gender</option>
+          <option value="1">Male</option>
+          <option value="0">Female</option>
+        </select>
+      </div>
+
+      <div class="col-md-4 form-group mt-3">
+
+        <h5>BMI</h5>
+        <br>
+
+        <input type="number" class="form-control" name="bmi" id="bmi" placeholder="bmi" required>
+
+      </div>
+      
+    </div>
+  
+    <div class="row">
+
+      <div class="col-md-4 form-group mt-3">
+        <h5>Smoking History</h5>
+        <br>
+
+        <select name="smoking_history" id="role" class="form-select" required>
+          <option value="">Smoking History</option>
+          <option value="0">Don't Know</option>
+          <option value="1">Smoked</option>
+          <option value="2">Never</option>
+        </select>
+      </div>
+
+      <div class="col-md-4 form-group mt-3">
+        <h5>Heart Disease</h5>
+        <br>
+        
+        <select name="heart_disease" id="role" class="form-select" required>
+          <option value="">Heart Disease</option>
+          <option value="0">Yes</option>
+          <option value="1">No</option>
+        </select>
+      </div>
+
+      <div class="col-md-4 form-group mt-3">
+
+        <h5>Glucose Level</h5>
+        <br>
+
+        <input type="number" name="blood_glucose_level" class="form-control" id="ldl" placeholder="blood_glucose_level" required>
+        
+      </div>
+
+      <div class="col-md-4 form-group mt-3">
+        <h5>Hypertension</h5>
+
+        <p>Hypertension is a medical condition in which the blood pressure in the arteries is persistently elevated. It has values a 0</p>
+        <br>
+        <select name="hypertension" id="role" class="form-select" required>
+          <option value="">Heart Disease</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+        </select>
+
+      </div>
+
+      <div class="col-md-4 form-group mt-3">
+        <h5>HbA1c_level</h5>
+
+        <p>HbA1c (Hemoglobin A1c) level is a measure of a person's average blood sugar level over the past 2-3 months. Higher levels</p>
+        <br>
+        <input type="number" name="HbA1c_level" class="form-control" id="tc" placeholder="HbA1c_level" required>
+
+      </div>
+
+
+    </div>
+
+    <br>
+
+    <div class="text-center"><button class="btn btn-outline-success" type="submit">Check Diabetes Status</button></div>
+  </form>
+   
+</div>
+
+{% endblock %}
